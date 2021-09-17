@@ -1,32 +1,32 @@
-const express = require("express");
+const express = require('express');
 const app = express();
-const cors = require("cors");
-const db = require("./db/db");
-const User = require("./models/User");
-const { findByIdAndUpdate } = require("./models/User");
+const cors = require('cors');
+const db = require('./db/db');
+const User = require('./models/User');
+const { findByIdAndUpdate } = require('./models/User');
 
-const allowList = "http://localhost:3000";
+const allowList = 'http://localhost:3000';
 const corsOption = {
-  origin: allowList,
+  origin: allowList
 };
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ limit: "50mb" }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb' }));
 app.use(cors(corsOption));
 
-app.get("/clients", async (req, res) => {
+app.get('/clients', async (req, res) => {
   const users = await User.find({});
   res.json({
-    users: users,
+    users: users
   });
 });
 
-app.post("/new-data", async (req, res, next) => {
+app.post('/new-data', async (req, res, next) => {
   const { username, car, price, image } = req.body;
   const data = {
     username: username,
     car: car,
     price: price,
-    image: image,
+    image: image
   };
   const newUser = await new User(data);
   newUser.save(async (err, user) => {
@@ -34,36 +34,36 @@ app.post("/new-data", async (req, res, next) => {
     const foundUser = await User.find({});
     res.json({
       status: 200,
-      message: foundUser,
+      message: foundUser
     });
   });
 });
 
-app.delete("/user/:id", async (req, res) => {
+app.delete('/user/:id', async (req, res) => {
   await User.findByIdAndDelete(req.params.id, async (err, item) => {
-    if (err) console.log("item is not deleted");
+    if (err) console.log('item is not deleted');
     else {
-      console.log("item deleted");
+      console.log('item deleted');
       const users = await User.find({});
       res.json({
         status: 200,
-        users: users,
+        users: users
       });
     }
   });
 });
 
-app.put("/update-data/:id", async (req, res) => {
+app.put('/update-data/:id', async (req, res) => {
   console.log(req.body);
   const user = await User.findByIdAndUpdate(req.params.id, req.body);
   const users = await User.find({});
 
   res.json({
     status: 200,
-    data: users,
+    data: users
   });
 });
 
 app.listen(9000, () => {
-  console.log("app listen on port 9000");
+  console.log('app listen on port 9000');
 });
