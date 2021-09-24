@@ -12,10 +12,17 @@ const userSchema = new mongoose.Schema({
       required: false,
     },
   ],
+  createdPosts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: "onModel",
+      required: false,
+    },
+  ],
   onModel: {
     type: String,
     required: false,
-    service: ["Product", "Property", "Job", "Vehicle"],
+    service: ["Job", "Product", "Property", "Vehicle"],
   },
 });
 
