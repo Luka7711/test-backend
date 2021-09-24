@@ -9,3 +9,7 @@ const propertySchema = new mongoose.Schema({
   description: { type: String, required: true },
   zipcode: { type: Number, required: true },
 });
+
+const property = mongoose.model("Property", propertySchema);
+
+module.exports = property;

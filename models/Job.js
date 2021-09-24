@@ -10,6 +10,6 @@ const jobSchema = new mongoose.Schema({
   perHour: { type: Number, required: false },
 });
 
-const Job = new mongoose.model("Job", jobSchema);
+const job = mongoose.model("Job", jobSchema);
 
-module.exports = Job;
+module.exports = job;

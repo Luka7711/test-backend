@@ -1,21 +1,30 @@
-const User = require('../models/User');
-const bcrypt = require('bcryptjs');
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
 const saltRounds = 10;
+const utils = require("../helpers/index");
 
 const userController = {
   createAccount: async (req, res) => {
-    const { username, email } = req.body;
-    bcrypt.genSalt(saltRounds, (err, salt) => {
-      bcrypt.hash(req.body.password, salt, async (err, hash) => {
-        const newAcct = { username: username, password: hash, email: email };
-        const user = new User(newAcct);
-        user.save();
-        res.json({
-          status: 200,
-          user: user
+    const valid = await utils.validateEmail(req.body.email);
+    if (valid) {
+      const { username, email } = req.body;
+      bcrypt.genSalt(saltRounds, (err, salt) => {
+        bcrypt.hash(req.body.password, salt, async (err, hash) => {
+          const newAcct = { username: username, password: hash, email: email };
+          const user = new User(newAcct);
+          user.save();
+          res.json({
+            status: 200,
+            user: user,
+          });
         });
       });
-    });
+    } else {
+      res.json({
+        status: 404,
+        message: "email is not valid",
+      });
+    }
   },
 
   login: async (req, res) => {
@@ -26,7 +35,7 @@ const userController = {
       else authorized = false;
       res.json({
         status: 200,
-        authorized: authorized
+        authorized: authorized,
       });
     });
   },
@@ -34,17 +43,9 @@ const userController = {
     await User.deleteMany({});
     const users = await User.find({});
     res.json({
-      user: users
+      user: users,
     });
   },
-  getUserCars: async (req, res) => {
-    const cars = await User.findOne({ username: req.params.username });
-    cars.populate('cars').then(car => {
-      res.json({
-        car: car.cars
-      });
-    });
-  }
 };
 
 module.exports = userController;

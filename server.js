@@ -1,25 +1,23 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-require('./db/db');
-const userController = require('./controllers/userController');
-const carController = require('./controllers/carController');
+const cors = require("cors");
+require("./db/db");
+const userController = require("./controllers/userController");
+const productController = require("./controllers/productController");
 
-const allowList = 'http://localhost:3000';
+const allowList = "http://localhost:3000";
 const corsOption = {
-  origin: allowList
+  origin: allowList,
 };
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb' }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb" }));
 app.use(cors(corsOption));
 
-app.post('/new-user', userController.createAccount);
-app.post('/user/:id', userController.login);
-app.delete('/delete-all-users', userController.deleteAll);
+app.post("/new-user", userController.createAccount);
+app.post("/user/:id", userController.login);
+app.delete("/delete-all-users", userController.deleteAll);
 
-app.post('/new-car/:username', carController.createCar);
-app.get('/all-cars', carController.allCars);
-app.get('/user-cars/:username', userController.getUserCars);
+app.post("/create-job/:user_id", productController.createJob);
 
 // app.get('/clients', async (req, res) => {
 //   const users = await User.find({});
@@ -73,5 +71,5 @@ app.get('/user-cars/:username', userController.getUserCars);
 // });
 
 app.listen(9000, () => {
-  console.log('app listen on port 9000');
+  console.log("app listen on port 9000");
 });
