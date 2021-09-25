@@ -7,18 +7,25 @@ const utils = require("../helpers/index.js");
 
 const productController = {
   createJob: async (req, res) => {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.user_id);
     const data = {
-      title: reb.body.title,
+      title: req.body.title,
       jobType: req.body.jobType,
       description: req.body.description,
       location: req.body.location,
-      minSalary: req.minSalary,
+      minSalary: req.body.minSalary,
       maxSalary: req.body.maxSalary,
       perHour: req.body.perHour,
     };
 
-    console.log(data);
+    const newJob = await new Job(data);
+    await newJob.save();
+    user.createdPosts.push(newJob._id);
+    user.save();
+
+    res.json({
+      user: user,
+    });
   },
 };
 
