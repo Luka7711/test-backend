@@ -17,33 +17,17 @@ app.post("/new-user", userController.createAccount);
 app.post("/user/:id", userController.login);
 app.delete("/delete-all-users", userController.deleteAll);
 
-app.post("/create-job/:user_id", productController.createJob);
-app.get("/created-posts/:user_id", productController.returnCreatedPosts);
-// app.get('/clients', async (req, res) => {
-//   const users = await User.find({});
-//   res.json({
-//     users: users
-//   });
-// });
+app.post("/add-job/:user_id", productController.createJob);
+app.post("/add-product/:user_id", productController.createProduct);
+app.post("/add-vehicle/:user_id", productController.createVehicle);
+app.post("/add-property/:user_id", productController.createProperty);
 
-// app.post('/new-data', async (req, res, next) => {
-//   const { username, car, price, image } = req.body;
-//   const data = {
-//     username: username,
-//     car: car,
-//     price: price,
-//     image: image
-//   };
-//   const newUser = await new User(data);
-//   newUser.save(async (err, user) => {
-//     if (err) return console.log(err);
-//     const foundUser = await User.find({});
-//     res.json({
-//       status: 200,
-//       message: foundUser
-//     });
-//   });
-// });
+app.get("/posts/:user_id", productController.returnCreatedPosts);
+app.get("/get-ads", productController.returnAllAdds);
+
+app.listen(9000, () => {
+  console.log("app listen on port 9000");
+});
 
 // app.delete('/user/:id', async (req, res) => {
 //   await User.findByIdAndDelete(req.params.id, async (err, item) => {
@@ -69,7 +53,3 @@ app.get("/created-posts/:user_id", productController.returnCreatedPosts);
 //     data: users
 //   });
 // });
-
-app.listen(9000, () => {
-  console.log("app listen on port 9000");
-});

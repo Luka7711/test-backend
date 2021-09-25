@@ -5,24 +5,31 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   image: { type: String, required: false },
   email: { type: String, required: true },
-  savedList: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      refPath: "onModel",
-      required: false,
-    },
-  ],
-  createdPosts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      refPath: "onModel",
-      required: false,
-    },
-  ],
-  onModel: {
-    type: String,
-    required: false,
-    enum: ["Job", "Product", "Property", "Vehicle"],
+  created: {
+    job: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+      },
+    ],
+    product: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    property: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Property",
+      },
+    ],
+    vehicle: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Vehicle",
+      },
+    ],
   },
 });
 
