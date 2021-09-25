@@ -5,6 +5,12 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   image: { type: String, required: false },
   email: { type: String, required: true },
+  conversation: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Conversation",
+    },
+  ],
   created: {
     job: [
       {
