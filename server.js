@@ -18,7 +18,7 @@ app.post("/user/:id", userController.login);
 app.delete("/delete-all-users", userController.deleteAll);
 
 app.post("/create-job/:user_id", productController.createJob);
-
+app.get("/created-posts/:user_id", productController.returnCreatedPosts);
 // app.get('/clients', async (req, res) => {
 //   const users = await User.find({});
 //   res.json({

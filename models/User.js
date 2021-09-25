@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
   onModel: {
     type: String,
     required: false,
-    service: ["Job", "Product", "Property", "Vehicle"],
+    enum: ["Job", "Product", "Property", "Vehicle"],
   },
 });
 
