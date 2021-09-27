@@ -6,6 +6,8 @@ const vehicleSchema = new mongoose.Schema({
   year: { type: String, required: true },
   price: { type: Number, required: true },
   zipcode: { type: Number, required: true },
+  adCategory: { type: String, required: true },
+  image: { type: String, required: false },
 });
 
 const vehicle = mongoose.model("Vehicle", vehicleSchema);

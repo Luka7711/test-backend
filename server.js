@@ -14,7 +14,7 @@ app.use(express.urlencoded({ limit: "50mb" }));
 app.use(cors(corsOption));
 
 app.post("/new-user", userController.createAccount);
-app.post("/user/:id", userController.login);
+app.post("/user/login", userController.login);
 app.delete("/delete-all-users", userController.deleteAll);
 
 app.post("/add-job/:user_id", productController.createJob);

@@ -8,6 +8,7 @@ const propertySchema = new mongoose.Schema({
   price: { type: Number, required: true },
   description: { type: String, required: true },
   zipcode: { type: Number, required: true },
+  adCategory: { type: String, required: true },
 });
 
 const property = mongoose.model("Property", propertySchema);
